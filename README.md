@@ -6,6 +6,9 @@ Backend-Django
 Tutorials Used:
 https://www.geeksforgeeks.org/how-to-connect-django-with-reactjs/#
 
+https://www.youtube.com/watch?v=HVFSgIVXcD4&ab_channel=WebDevEducation
+https://www.youtube.com/watch?v=e1IyzVyrLSU&ab_channel=TraversyMedia
+
 how to currently start project:
 For samir 
     To start backend
