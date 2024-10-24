@@ -9,7 +9,7 @@ import {Text} from '@mantine/core';
 import { Box } from '@mantine/core';
 
 
-function LoginPage(){
+export default function LoginPage(){
     return(
         <div>
         
