@@ -6,6 +6,7 @@ import { theme } from "./theme";
 import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CreateAccount from "./create_account_page";
 
 export default function App() {
     return (
@@ -13,7 +14,8 @@ export default function App() {
         <Router>
           <Routes>
             
-            <Route path="/Michelle" element={<LoginPage/>} />
+            <Route path="/Login" element={<LoginPage/>} />
+            <Route path="/createaccount" element={<CreateAccount/>} />
             
   
           </Routes>
