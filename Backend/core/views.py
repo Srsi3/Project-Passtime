@@ -21,3 +21,10 @@ class ReactView(APIView):
             serializer.save()
             return  Response(serializer.data)
 
+# views.py
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+def user_list(request):
+    users = User.objects.all()  # Fetch all users
+    return render(request, 'user_list.html', {'users': users})
