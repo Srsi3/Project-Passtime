@@ -24,3 +24,15 @@ urlpatterns = [
 
     # If you have more URLs to add, use path() or re_path() here.
 ]
+
+
+from rest_framework.routers import DefaultRouter
+from .views import StudentViewSet, HallPassRequestViewSet
+
+router = DefaultRouter()
+router.register(r'students', StudentViewSet)
+router.register(r'hallpass-requests', HallPassRequestViewSet)
+
+urlpatterns = [
+    # Other URLs...
+] + router.urls
