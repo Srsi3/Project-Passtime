@@ -28,9 +28,6 @@ def hallpass_list(request):
     hallpasses = HallPassRequest.objects.filter(status='pending')
     return render(request, 'hallpass_list.html', {'hallpasses': hallpasses})
 
-
-
-
 from rest_framework import viewsets
 from .models import Student, HallPassRequest
 from .serializers import StudentSerializer, HallPassRequestSerializer
@@ -50,3 +47,11 @@ class HallPassRequestViewSet(viewsets.ModelViewSet):
     <li>{{ pass.student.user.username }} - {{ pass.request_type }} - {{ pass.status }}</li>
     {% endfor %}
 </ul>
+=======
+# views.py
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+def user_list(request):
+    users = User.objects.all()  # Fetch all users
+    return render(request, 'user_list.html', {'users': users})
