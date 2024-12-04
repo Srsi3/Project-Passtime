@@ -3,6 +3,14 @@ from rest_framework.views import APIView
 from . models import *
 from rest_framework.response import Response
 from . serializer import *
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from django.shortcuts import render
+
+
 # Create your views here.
 
 class ReactView(APIView):
@@ -22,9 +30,18 @@ class ReactView(APIView):
             return  Response(serializer.data)
 
 # views.py
-from django.contrib.auth.models import User
-from django.shortcuts import render
+
 
 def user_list(request):
     users = User.objects.all()  # Fetch all users
     return render(request, 'user_list.html', {'users': users})
+
+
+class PassRequestViewSet(viewsets.ModelViewSet):
+    queryset = PassRequest.objects.all()
+    serializer_class = PassRequestSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        student = Student.objects.get(user=self.request.user)
+        serializer.save(student=student)
