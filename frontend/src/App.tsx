@@ -8,6 +8,7 @@ import { MantineProvider } from "@mantine/core";
 import "./index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CreateAccount from "./create_account_page";
+import HomePage from "./home_page";
 
 export default function App() {
     return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/Login" element={<LoginPage/>} />
             <Route path="/createaccount" element={<CreateAccount/>} />
             <Route path="/studentrequest" element={<StudentRequest/>} />
+            <Route path="/home" element={<HomePage/>} />
   
           </Routes>
         </Router>
