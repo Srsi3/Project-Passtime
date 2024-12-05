@@ -3,6 +3,12 @@ from . models import *
 from rest_framework import serializers
 from .models import Student, HallPassRequest
 
+class ReactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = React
+        fields = ['name', 'detail']
+
+
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
