@@ -316,4 +316,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/python,windows,django,react,venv
+# End of https://www.toptal.com/developers/gitignore/api/python,windows,django,react,venvsendgrid.env
