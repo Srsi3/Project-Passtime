@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path  # Keep these imports
 from core.views import *  # Adjust based on your view imports
-
+from core.views import ReactView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('wel/', ReactView.as_view(), name="something"),
+    
 
     # If you have more URLs to add, use path() or re_path() here.
 ]
