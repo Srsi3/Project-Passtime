@@ -7,7 +7,7 @@ export default function HomePage() {
     const [location, setLocation] = useState('');
     const date = new Date();
     return (
-        <div
+        <div 
             style={{
                 backgroundColor:'#E0F7FA',
                 minHeight:'100vh',
@@ -47,10 +47,16 @@ export default function HomePage() {
                         Person 3
                     </Button>
                 </Group>
+
+
+
+
                 <Title order={2} style={{color:'#000000', marginBottom: '1px', marginTop:'30px', fontFamly:'Roboto' }}>
                     Approved Requests
                 </Title>
+
                 <Group justify="center">
+    
                     <Button style={{ backgroundColor: '#808080', color: 'white', width: '150px', height: '150px' }}>
                         {/*placehold*/}
                         Person 1
@@ -59,6 +65,7 @@ export default function HomePage() {
                         {/* placehold */}
                         Person 2
                     </Button>
+
                 </Group>
             </Stack>
         </div>
