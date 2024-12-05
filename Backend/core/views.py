@@ -2,6 +2,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import React, HallPassRequest, Student
+from rest_framework import viewsets
+from .models import Student, HallPassRequest
+from .serializer import StudentSerializer, HallPassRequestSerializer
+from django.contrib.auth.models import User
 from .serializer import ReactSerializer, HallPassRequestSerializer, StudentSerializer
 from core.utils import send_email  # Import the email utility function
 from datetime import datetime, timedelta

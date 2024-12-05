@@ -23,6 +23,7 @@ from django.urls import path, include  # Add include here
 from core.views import user_list  # Import the user_list view
 from rest_framework.routers import DefaultRouter
 from core.views import StudentViewSet, HallPassRequestViewSet
+from core.views import StudentViewSet, HallPassRequestViewSet
 router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'hallpass-requests', HallPassRequestViewSet)
@@ -35,7 +36,10 @@ urlpatterns = [
 #   path('wel/', ReactView.as_view(), name="something"),
     path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset, etc.
     path('auth/registration/', include('dj_rest_auth.registration.urls')),  # Registration
-    path('users/', user_list, name='user_list'),  # Add this line
-    # Add other URL patterns below as needed
+    path('users/', user_list, name='user_list'), 
+
 ] + router.urls
+    #path('wel/', ReactView.as_view(), name="something"),
+   # Add this line
+    # Add other URL patterns below as needed
 
