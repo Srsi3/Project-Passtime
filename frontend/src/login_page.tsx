@@ -29,7 +29,7 @@ export default function LoginPage() {
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/auth/login/', {
-        emausernameil: email,
+        username: email,
         password: password,
       });
 
@@ -42,7 +42,7 @@ export default function LoginPage() {
         localStorage.setItem('authToken', token);
 
         // Redirect to a protected route or dashboard
-        navigate('/dashboard');
+        navigate('/home');
       } else {
         setError('Login failed. Please try again.');
       }
