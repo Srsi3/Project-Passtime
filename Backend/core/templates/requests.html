@@ -1,0 +1,5 @@
+<ul>
+    {% for pass in hallpasses %}
+    <li>{{ pass.student.user.username }} - {{ pass.request_type }} - {{ pass.status }}</li>
+    {% endfor %}
+</ul>
