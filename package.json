@@ -1,0 +1,15 @@
+{
+  "name": "cen3031_project",
+  "version": "1.0.0",
+  "description": "CEN3031_Project\r Frontend-React\r     bootstrap, axios, jquery\r Backend-Django\r     django, djangorestframework, corsheaders\r Tutorials Used:\r https://www.geeksforgeeks.org/how-to-connect-django-with-reactjs/#",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react-scripts": "^5.0.1"
+  }
+}
