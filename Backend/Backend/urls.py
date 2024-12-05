@@ -15,6 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+
+from django.urls import path, re_path  # Keep these imports
+from core.views import *  # Adjust based on your view imports
+from core.views import ReactView
 from django.urls import path, include  # Add include here
 # from core.views import ReactView  # Adjust based on your view imports
 from core.views import user_list  # Import the user_list view
@@ -29,6 +33,7 @@ urlpatterns = [
 ] + router.urls
     #path('wel/', ReactView.as_view(), name="something"),
   path('admin/', admin.site.urls),
+  path('wel/', ReactView.as_view(), name="something"),
     path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset, etc.
     path('auth/registration/', include('dj_rest_auth.registration.urls')),  # Registration
     path('users/', user_list, name='user_list'),  # Add this line
