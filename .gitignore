@@ -322,3 +322,7 @@ sqldiff.exe
 sqlite3_analyzer.exe
 sqlite3_rsync.exe
 sqlite3.exe
+package-lock.json
+Backend/package-lock.json
+Backend/package.json
+Backend/package-lock.json
