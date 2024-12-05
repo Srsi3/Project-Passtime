@@ -86,7 +86,7 @@ export default function StudentRequest(){
             height: '60vh',             
           }}>
             <Stack justify = "center" align="left">
-            <Text size='xl' fw={700} style={{color: 'black', fontSize: '16px'}}>
+            <Text size='xl' fw={700} style={{color: 'black', fontSize: '16px'}}> 
                 WINSTON BISHOP
             <Text size='xl' fw={700} style={{color: 'gray', fontSize: '16px'}}>
                 English 1
@@ -107,6 +107,8 @@ export default function StudentRequest(){
                         opacity: location && location !== loc ? 0.5 : 1, // Fades other buttons
                         transition: 'opacity 0.3s ease' // Smooth transition
                     }}
+                    // set disabled when location !== loc and request IS canceled
+                    disabled={location!= loc && cancelRequest}
                 >
                     {loc}
                 </Button>
