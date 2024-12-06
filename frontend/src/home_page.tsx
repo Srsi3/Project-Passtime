@@ -1,8 +1,8 @@
 import "@mantine/core/styles.css";
-import { Button, Stack, Group, Text, Title } from "@mantine/core";
-import { useState, useEffect } from 'react';
-import { AxiosError } from 'axios';
-import axios from 'axios';
+import { Button, Stack, Group, Text, Box, Title } from "@mantine/core";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios, { AxiosError } from 'axios';
 
 // Define the shape of a hall pass request
 interface HallPassRequestData {
@@ -15,7 +15,9 @@ interface HallPassRequestData {
 
 export default function HomePage() {
   const [requests, setRequests] = useState<HallPassRequestData[]>([]);
+  const [location, setLocation] = useState('');
   const date = new Date();
+  const navigate = useNavigate(); // Initialize the navigation hook
 
   // Fetch all hall pass requests on mount
   useEffect(() => {
@@ -31,7 +33,7 @@ export default function HomePage() {
   // Separate requests by status
   const pendingRequests = requests.filter(req => req.status === 'pending');
   const approvedRequests = requests.filter(req => req.status === 'approved');
-  // Rejected requests are not displayed at all
+  // Rejected requests are not displayed
 
   const handleApprove = (id: number) => {
     axios.post(`http://127.0.0.1:8000/hallpass-requests/${id}/approve/`)
@@ -57,42 +59,100 @@ export default function HomePage() {
       });
   };
 
+  const handleLogout = () => {
+    // Perform any logout logic here (e.g., clearing auth tokens, etc.)
+    navigate('/login'); // Navigate to the login page
+  };
+
   return (
-    <div 
+    <div
       style={{
-        backgroundColor:'#E0F7FA',
-        minHeight:'100vh',
-        display:'flex',
-        justifyContent:'flex-start',
-        alignItems:'flex-end',
-        flexDirection:'column'
+        backgroundColor: '#E0F7FA',
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end',
+        flexDirection: 'column',
       }}
     >
-      <Stack justify="flex-start" align="flex-start" style={{ width: '100%', paddingLeft: '30px', paddingTop: '20px' }}>
-        <Text size='xl' fw={700} style={{ color: 'black', fontSize: '16px' }}>
-          {date.toLocaleDateString('en-us', { weekday: "long", year: "numeric", month: "short", day: "numeric" })}
+      {/* Top Bar */}
+      <Box
+        style={{
+          width: '100%',
+          backgroundColor: '#0097A7',
+          padding: '10px 20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: '20px', fontFamily: 'Holtwood One SC, serif' }}>PassTime</Text>
+        <Group style={{ gap: '16px' }}>
+          <Link to="/profile" style={{ textDecoration: 'none' }}>
+            <Button variant="subtle" style={{ color: 'white' }}>Profile</Button>
+          </Link>
+
+          <Link to="/settings" style={{ textDecoration: 'none' }}>
+            <Button variant="subtle" style={{ color: 'white' }}>Settings</Button>
+          </Link>
+
+          <Button
+            variant="subtle"
+            style={{ color: 'white' }}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </Group>
+      </Box>
+
+      {/* Page Content */}
+      <Stack justify="flex-start" align="flex-start" style={{ width: '100%', paddingLeft: '30px', paddingTop: '80px' }}>
+        <Text size="xl" fw={700} style={{ color: 'black', fontSize: '16px' }}>
+          {date.toLocaleDateString('en-us', {
+            weekday: "long",
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
         </Text>
-        <Text size='xl' fw={700} style={{color: '#0097A7', fontSize: '40px', fontFamily: 'Holtwood One SC, serif' }}>
+
+        <Text size="xl" fw={700} style={{ color: '#0097A7', fontSize: '40px', fontFamily: 'Holtwood One SC, serif' }}>
           PassTime
         </Text>
-        <Text size='xl' fw={700} style={{color: 'black', fontSize: '16px'}}>
+
+        {/* <Text size="xl" fw={700} style={{ color: 'black', fontSize: '16px' }}>
           WINSTON BISHOP
-          <Text size='xl' fw={700} style={{color: 'gray', fontSize: '16px'}}>
+          <Text size="xl" fw={700} style={{ color: 'gray', fontSize: '16px' }}>
             English 1
           </Text>
-        </Text>
-        
+        </Text> */}
+
         {/* Pending Requests Section */}
-        <Title order={2} style={{ color:'#000000', marginBottom: '1px', fontFamily:'Roboto' }}>
+        <Title order={2} style={{ color: '#000000', marginBottom: '1px', fontFamily: 'Roboto' }}>
           Student Requests
         </Title>
-        <Group justify="center" style={{ flexWrap: 'wrap', gap: '20px' }}>
+        <Group justify="center" mt={10} style={{ flexWrap: 'wrap', gap: '20px' }}>
           {pendingRequests.map(req => (
-            <div key={req.id} style={{ backgroundColor: '#808080', color: 'white', width: '150px', height: '150px', display: 'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', borderRadius:'8px' }}>
+            <div key={req.id} style={{
+              backgroundColor: '#808080',
+              color: 'white',
+              width: '150px',
+              height: '150px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '8px'
+            }}>
               <Text size='md' fw={700}>{req.student}</Text>
               <Text size='sm'>{req.request_type}</Text>
-              <Text size='sm'>{req.reason || 'No reason'}</Text>
-              <Group style={{ marginTop: '10px' }}>
+              {/* <Text size='sm'>{req.reason || 'No reason'}</Text> */}
+              <Group justify="center" mt={10}>
                 <Button size="xs" onClick={() => handleApprove(req.id)} style={{ backgroundColor: '#4CAF50', color: 'white' }}>
                   Approve
                 </Button>
@@ -103,25 +163,34 @@ export default function HomePage() {
             </div>
           ))}
           {pendingRequests.length === 0 && (
-            <Text size='sm' style={{ color:'black' }}>No pending requests</Text>
+            <Text size='sm' style={{ color: 'black' }}>No pending requests</Text>
           )}
         </Group>
 
         {/* Approved Requests Section */}
-        <Title order={2} style={{color:'#000000', marginBottom: '1px', marginTop:'30px', fontFamily:'Roboto' }}>
+        <Title order={2} style={{ color: '#000000', marginBottom: '1px', marginTop: '30px', fontFamily: 'Roboto' }}>
           Approved Requests
         </Title>
-        <Group justify="center" style={{ flexWrap: 'wrap', gap: '20px' }}>
+        <Group justify="center" mt={10} style={{ flexWrap: 'wrap', gap: '20px' }}>
           {approvedRequests.map(req => (
-            <div key={req.id} style={{ backgroundColor: '#808080', color: 'white', width: '150px', height: '150px', display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center', borderRadius:'8px' }}>
+            <div key={req.id} style={{
+              backgroundColor: '#808080',
+              color: 'white',
+              width: '150px',
+              height: '150px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: '8px'
+            }}>
               <Text size='md' fw={700}>{req.student}</Text>
               <Text size='sm'>{req.request_type}</Text>
               <Text size='sm'>{req.reason || 'No reason'}</Text>
-              {/* Approved requests have no approve/reject buttons */}
             </div>
           ))}
           {approvedRequests.length === 0 && (
-            <Text size='sm' style={{ color:'black' }}>No approved requests</Text>
+            <Text size='sm' style={{ color: 'black' }}>No approved requests</Text>
           )}
         </Group>
       </Stack>
