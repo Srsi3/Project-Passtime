@@ -29,9 +29,6 @@ router.register(r'students', StudentViewSet)
 router.register(r'hallpass-requests', HallPassRequestViewSet)
 
 urlpatterns = [
-    # Other URLs...
-
-    #path('wel/', ReactView.as_view(), name="something"),
 #   path('admin/', admin.site.urls),
 #   path('wel/', ReactView.as_view(), name="something"),
     path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset, etc.
@@ -39,7 +36,4 @@ urlpatterns = [
     path('users/', user_list, name='user_list'), 
 
 ] + router.urls
-    #path('wel/', ReactView.as_view(), name="something"),
-   # Add this line
-    # Add other URL patterns below as needed
 
