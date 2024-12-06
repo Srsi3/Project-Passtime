@@ -1,7 +1,7 @@
 import "@mantine/core/styles.css";
 import { Button, Stack, Group, Text, Box, TextInput } from "@mantine/core";
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios, { AxiosError } from 'axios';
 
 export default function CreateAccount() {
@@ -12,6 +12,7 @@ export default function CreateAccount() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
 
+    const navigate = useNavigate(); // Initialize useNavigate
 
     const handleSubmit = async () => {
         setError('');  // Reset error
@@ -43,14 +44,22 @@ export default function CreateAccount() {
                 password2: confirmPassword,
             });
 
-            if (response.status === 201) {  // Created
+            console.log("Navigating to login 1.")
+
+            if (response.status === 204) {  // Created
                 // Registration successful
                 setSuccess(true);
                 setFullName('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
+                console.log("Navigating to login 2")
+                //const token = response.data.token;
+                //localStorage.setItem('authToken', token);
+                navigate('/login');
+
             } 
+            
         } catch (err) {
           const axiosError = err as AxiosError<any>;
           console.log('Error response:', axiosError.response); // Log the entire response for debugging
@@ -98,8 +107,8 @@ export default function CreateAccount() {
                         <Text style={{ color: 'green', marginBottom: '-13px' }}>Registration successful! You can now <Link to="/login">login</Link>.</Text>
                     )}
                     <TextInput
-                        label="Full Name"
-                        placeholder="Enter Full Name"
+                        label="Username"
+                        placeholder="Enter Username"
                         type="text"
                         value={fullName}
                         onChange={(event) => setFullName(event.currentTarget.value)}
