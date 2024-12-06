@@ -32,6 +32,22 @@ export default function LoginPage() {
         username: email,
         password: password,
       });
+      console.log('API response:', response);
+
+      const token = response.data.key;
+      sessionStorage.setItem('authToken', token);  
+      console.log('Token saved:', sessionStorage.getItem('authToken'));
+      console.log('Token from response:', token);
+      //console.log('Token saved:', localStorage.getItem('authToken'));  // Log the saved token
+
+
+      if (token) {
+          sessionStorage.setItem('authToken', token);  
+          console.log('Token saved:', sessionStorage.getItem('authToken'));
+    } else {
+        console.error('Token not found in response.');
+    }
+
 
       if (response.status === 200) {  // OK
         // Login successful
@@ -39,7 +55,8 @@ export default function LoginPage() {
 
         // Store authentication token if provided
         const token = response.data.token;
-        localStorage.setItem('authToken', token);
+        localStorage.setItem('authToken', response.data.token);
+        console.log('Token saved:', sessionStorage.getItem('authToken')); // Should log the token
 
         // Redirect to a protected route or dashboard
         navigate('/home');
@@ -55,6 +72,10 @@ export default function LoginPage() {
         setError('An error occurred. Please try again.');
       }
     }
+  };
+
+  const handleForgetPasswordClick = () => {
+    navigate("/forgotpassword");
   };
 
   return (
@@ -87,8 +108,8 @@ export default function LoginPage() {
             <Text style={{ color: 'red', marginBottom: '-13px' }}>{error}</Text>
           )}
           <TextInput
-            label="Email"
-            placeholder="Enter Email"
+            label="Username"
+            placeholder="Enter Username"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.currentTarget.value)}
@@ -113,6 +134,7 @@ export default function LoginPage() {
             }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#4B0082')} // Hover color
               onMouseLeave={(e) => (e.currentTarget.style.color = '#42A5F5')} // Revert color
+              onClick={handleForgetPasswordClick}
             >
               Forgot Password?
             </Text>
