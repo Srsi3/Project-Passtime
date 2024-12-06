@@ -36,15 +36,27 @@ from django.urls import path, re_path  # Keep these imports
 from core.views import *  # Adjust based on your view imports
 from core.views import ReactView
 from django.urls import path, include  # Add include here
+# from core.views import ReactView  # Adjust basedS on your view imports
+from core.views import user_list  # Import the user_list view
+from rest_framework.routers import DefaultRouter
+from core.views import StudentViewSet, HallPassRequestViewSet, CustomPasswordResetView
+# from .views import CustomPasswordResetView
 from core.views import user_list  # Import the user_list view
 from rest_framework.routers import DefaultRouter
 from core.views import StudentViewSet, HallPassRequestViewSet
-from core.views import StudentViewSet, HallPassRequestViewSet
+
 router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'hallpass-requests', HallPassRequestViewSet)
+# router.register(r'hall_pass_requests', HallPassRequestViewSet)
+
 
 urlpatterns = [
+    # Other URLs...
+    # path('auth/password/reset/', CustomPasswordResetView.as_view(), name='password_reset'),
+    path('auth/reset_password/', CustomPasswordResetView.as_view(), name='password_reset'),
+    #path('admin/', admin.site.urls),
+    #path('wel/', ReactView.as_view(), name="something"),
 #   path('admin/', admin.site.urls),
 #   path('wel/', ReactView.as_view(), name="something"),
     path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset, etc.

@@ -107,4 +107,6 @@ export default function ForgotPassword() {
       </Box>
     </div>
   );
+
 }
+
