@@ -25,6 +25,10 @@ from core.views import user_list  # Import the user_list view
 from rest_framework.routers import DefaultRouter
 from core.views import StudentViewSet, HallPassRequestViewSet, CustomPasswordResetView
 # from .views import CustomPasswordResetView
+from core.views import user_list  # Import the user_list view
+from rest_framework.routers import DefaultRouter
+from core.views import StudentViewSet, HallPassRequestViewSet
+
 router = DefaultRouter()
 router.register(r'students', StudentViewSet)
 router.register(r'hallpass-requests', HallPassRequestViewSet)
@@ -35,15 +39,13 @@ urlpatterns = [
     # Other URLs...
     # path('auth/password/reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('auth/reset_password/', CustomPasswordResetView.as_view(), name='password_reset'),
-    path('admin/', admin.site.urls),
-    path('wel/', ReactView.as_view(), name="something"),
+    #path('admin/', admin.site.urls),
+    #path('wel/', ReactView.as_view(), name="something"),
+#   path('admin/', admin.site.urls),
+#   path('wel/', ReactView.as_view(), name="something"),
     path('auth/', include('dj_rest_auth.urls')),  # Login, logout, password reset, etc.
     path('auth/registration/', include('dj_rest_auth.registration.urls')),  # Registration
     path('users/', user_list, name='user_list'), 
 
 ] + router.urls
-    #path('wel/', ReactView.as_view(), name="something"),
-   # Add this line
-    # Add other URL patterns below as needed
-
 
