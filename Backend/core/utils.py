@@ -12,7 +12,7 @@ def send_email(to_email, subject, message_body):
         html_content=message_body
     )
     try:
-        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        sg = SendGridAPIClient(os.environ.get('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'))
         response = sg.send(message)
         print(f"Email sent! Status code: {response.status_code}")
         return response.status_code

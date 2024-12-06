@@ -41,7 +41,7 @@ class HallPassRequestViewSet(viewsets.ModelViewSet):
 
                 # Instead of printing the approve/reject endpoints, print a link to the homepage
                 # with a query parameter for the request_id.
-                homepage_link = f"http://127.0.0.1:3000/?request_id={hall_pass_request.id}"
+                homepage_link = f"http://127.0.0.1:3000/home"
 
                 print("----- EMAIL OUTPUT START -----")
                 print("Subject: Incoming Hall Pass Request")
@@ -84,3 +84,43 @@ def hallpass_list(request):
 def user_list(request):
     users = User.objects.all()
     return render(request, 'user_list.html', {'users': users})
+
+
+from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Student, HallPassRequest
+from .serializer import StudentSerializer, HallPassRequestSerializer, CustomPasswordResetSerializer
+from rest_framework import viewsets, status
+from django.contrib.auth.models import User
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action
+from datetime import datetime, timedelta
+# Create your views here.
+# from .serializers import CustomPasswordResetSerializer
+from dj_rest_auth.views import PasswordResetView
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+
+class CustomPasswordResetView(APIView):
+    serializer_class = CustomPasswordResetSerializer
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [AllowAny]  # Allows unauthenticated users to access the endpoint
+
+    def post(self, request, *args, **kwargs):
+        print("Request data:", request.data)  # Log incoming request data
+        serializer = self.serializer_class(data=request.data)
+
+        # Check if the serializer is valid
+        if serializer.is_valid():
+            # If valid, call save method to reset the password
+            serializer.save()  
+            return Response({"detail": "Password reset successful."}, status=status.HTTP_200_OK)
+
+        # If validation fails, return the errors
+        print("Validation errors:", serializer.errors)  # Log the validation errors
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
